@@ -14,17 +14,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by mshine7 on 02/09/2016.
  */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
 
     private final Context context;
-    private List<UserData> userList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
     private final LayoutInflater inflater;
     private Listener listener;
 
-    public ListAdapter(Context context, List<UserData> userList) {
+    public ListAdapter(Context context, List<User> userList) {
 
         this.context = context;
         this.userList = userList;
@@ -42,9 +45,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(ListViewHolder holder, int position) {
 
-        final UserData user = userList.get(position);
+        final User user = userList.get(position);
 
-        holder.tv_podCount.setText(String.valueOf(user.podCount));
+        holder.tv_podCount.setText(String.valueOf(user.getPodCount()));
 
         holder.iv_stats.setTag(position);
         holder.iv_stats.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +65,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             public void onClick(final View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 alert.setTitle("Delete Confirmation");
-                alert.setMessage("Are you sure you want to delete " + user.name + " as a user?");
+                alert.setMessage("Are you sure you want to delete " + user.getName() + " as a user?");
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -81,7 +84,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             }
         });
 
-        holder.tv_name.setText(user.name);
+        holder.tv_name.setText(user.getName());
         holder.tv_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,17 +102,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {
-        final TextView tv_name;
-        final ImageView iv_delete;
-        final TextView tv_podCount;
-        final ImageView iv_stats;
+        @BindView(R.id.tv_name) TextView tv_name;
+        @BindView(R.id.tvPodCount) TextView tv_podCount;
+        @BindView(R.id.iv_stats) ImageView iv_stats;
+        @BindView(R.id.iv_delete) ImageView iv_delete;
+
 
         public ListViewHolder(View itemView) {
             super(itemView);
-            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
-            iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
-            tv_podCount = (TextView) itemView.findViewById(R.id.tvPodCount);
-            iv_stats = (ImageView) itemView.findViewById(R.id.iv_stats);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

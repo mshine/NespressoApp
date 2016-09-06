@@ -72,7 +72,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertUser(UserData userData) {
+    public void insertUser(User user) {
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -80,8 +80,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
         try {
             ContentValues values = new ContentValues();
-            values.put(NAME, userData.name);
-            values.put(POD_COUNT, userData.podCount);
+            values.put(NAME, user.getName());
+            values.put(POD_COUNT, user.getPodCount());
 
             db.insertOrThrow(TABLE_USERS, null, values);
             db.setTransactionSuccessful();
@@ -93,9 +93,9 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<UserData> getUsersList() {
+    public List<User> getUsersList() {
 
-        List<UserData> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         String USER_DETAIL_SELECT_QUERY = "SELECT * FROM " + TABLE_USERS;
 
@@ -105,12 +105,12 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    UserData userData = new UserData();
-                    userData.id = cursor.getInt(cursor.getColumnIndex(_ID));
-                    userData.name = cursor.getString(cursor.getColumnIndex(NAME));
-                    userData.podCount = cursor.getInt(cursor.getColumnIndex(POD_COUNT));
+                    User user = new User();
+                    user.setId(cursor.getInt(cursor.getColumnIndex(_ID)));
+                    user.setName(cursor.getString(cursor.getColumnIndex(NAME)));
+                    user.setPodCount(cursor.getInt(cursor.getColumnIndex(POD_COUNT)));
 
-                    users.add(userData);
+                    users.add(user);
 
                 } while (cursor.moveToNext());
             }
@@ -126,9 +126,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public UserData getUser(int id) {
+    public User getUser(int id) {
 
-        UserData user = new UserData();
+        User user = new User();
         String USER_SELECT_QUERY = "SELECT * FROM " + TABLE_USERS + " WHERE " + _ID + " = " + id;
 
         SQLiteDatabase db = getReadableDatabase();
@@ -137,9 +137,9 @@ public class DbHelper extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.moveToFirst();
 
-            user.id = cursor.getInt(cursor.getColumnIndex(_ID));
-            user.name = cursor.getString(cursor.getColumnIndex(NAME));
-            user.podCount = cursor.getInt(cursor.getColumnIndex(POD_COUNT));
+            user.setId(cursor.getInt(cursor.getColumnIndex(_ID)));
+            user.setName(cursor.getString(cursor.getColumnIndex(NAME)));
+            user.setPodCount(cursor.getInt(cursor.getColumnIndex(POD_COUNT)));
             cursor.close();
         } else {
             Log.d(TAG, "Error while trying to get a user from database");

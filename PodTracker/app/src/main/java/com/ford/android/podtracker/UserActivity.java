@@ -8,10 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class UserActivity extends AppCompatActivity {
 
-    private EditText et_name;
-    private Button btn_next;
+    @BindView(R.id.et_name)
+    EditText et_name;
+    @BindView(R.id.btn_next)
+    Button btn_next;
+
     private DbHelper dbHelper;
 
     @Override
@@ -19,30 +25,29 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        dbHelper = DbHelper.getInstance(getApplicationContext());
+        ButterKnife.bind(this);
 
-        et_name = (EditText) findViewById(R.id.et_name);
-        btn_next = (Button) findViewById(R.id.btn_next);
+        dbHelper = DbHelper.getInstance(getApplicationContext());
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserData userData = new UserData();
+                User user = new User();
 
                 if (!et_name.getText().toString().isEmpty()) {
                     String etName = et_name.getText().toString();
-                    userData.name = etName.substring(0, 1).toUpperCase() + etName.substring(1).toLowerCase();
+                    user.setName(etName.substring(0, 1).toUpperCase() + etName.substring(1).toLowerCase());
                 } else {
                     et_name.setError("Please enter a name");
                     return;
                 }
 
-                dbHelper.insertUser(userData);
+                dbHelper.insertUser(user);
 
                 Intent intent = new Intent(UserActivity.this, UserListActivity.class);
                 startActivity(intent);
 
-                CharSequence text = "User " + userData.name + " added.";
+                CharSequence text = "User " + user.getName() + " added.";
                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                 toast.show();
             }

@@ -5,5 +5,5 @@ package com.ford.android.podtracker;
  */
 interface Listener {
 
-    void deleteUser(UserData user);
+    void deleteUser(User user);
 }

@@ -6,34 +6,41 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AddPodActivity extends AppCompatActivity {
 
     private DbHelper dbHelper;
-    private TextView tvPodCount;
-    private ImageButton btnAddPod;
+
+    @BindView(R.id.btnAddPod)
+    ImageButton btnAddPod;
+    @BindView(R.id.tvAddPodCount)
+    TextView tvPodCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pod);
 
+        ButterKnife.bind(this);
+
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
-        tvPodCount = (TextView) findViewById(R.id.tvAddPodCount);
-        final UserData user = (UserData) getIntent().getSerializableExtra("user");
-        final UserData user2 = dbHelper.getUser(user.id);
-        tvPodCount.setText(String.valueOf(user2.podCount));
+        final User user = (User) getIntent().getSerializableExtra("user");
 
-        btnAddPod = (ImageButton) findViewById(R.id.btnAddPod);
+        final int[] podCount = {dbHelper.getUser(user.getId()).getPodCount()};
+        tvPodCount.setText(String.valueOf(podCount[0]));
+
         btnAddPod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user2.podCount++;
-                tvPodCount.setText(String.valueOf(user2.podCount));
+                podCount[0]++;
+                tvPodCount.setText(String.valueOf(podCount[0]));
 
-                dbHelper.updatePodCount(user2.id, user2.podCount);
-    }
-});
+                dbHelper.updatePodCount(user.getId(), podCount[0]);
+            }
+        });
 
     }
 }

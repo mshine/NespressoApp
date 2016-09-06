@@ -11,12 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class UserListActivity extends AppCompatActivity implements Listener {
 
     private RecyclerView recyclerView;
     private DbHelper dbHelper;
     private ListAdapter adapter;
-    private FloatingActionButton fab;
+
+    @BindView(R.id.fab_addUser) FloatingActionButton fabAddUser;
 
     @Override
     protected void onStart() {
@@ -44,9 +48,9 @@ public class UserListActivity extends AppCompatActivity implements Listener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+        ButterKnife.bind(this);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab_addUser);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), UserActivity.class);
@@ -64,16 +68,15 @@ public class UserListActivity extends AppCompatActivity implements Listener {
     }
 
     @Override
-    public void deleteUser(UserData user) {
+    public void deleteUser(User user) {
 
-        int id = user.id;
-        dbHelper.deleteUserRow(id);
+        dbHelper.deleteUserRow(user.getId());
 
         adapter = new ListAdapter(this, dbHelper.getUsersList());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        CharSequence text = "User " + user.name + " removed.";
+        CharSequence text = "User " + user.getName() + " removed.";
         Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
         toast.show();
     }
