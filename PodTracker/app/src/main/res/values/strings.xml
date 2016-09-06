@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PodTracker</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="next">Next</string>
+    <string name="delete_icon">delete icon</string>
+    <string name="pod_count_hint">0</string>
+    <string name="pod_count">Pod Count:</string>
+    <string name="pod">Pod</string>
+</resources>
