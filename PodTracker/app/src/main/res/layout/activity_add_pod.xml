@@ -15,6 +15,8 @@
         android:layout_centerInParent="true"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
         android:id="@+id/btnAddPod"
         android:contentDescription="@string/pod"
         android:src="@mipmap/ic_capsule"
@@ -23,11 +25,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/tvPodCountLabel"
+        android:layout_above="@+id/tvAddPodCount"
+        android:textColor="@color/whiteText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="@string/number_of_pods"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/tvAddPodCount"
         android:layout_above="@+id/btnAddPod"
         android:textColor="@color/whiteText"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="51dp"
+        android:layout_marginBottom="30dp"
         android:width="20dp"
         android:textSize="20sp" />
 </RelativeLayout>

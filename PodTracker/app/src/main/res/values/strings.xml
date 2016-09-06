@@ -6,4 +6,7 @@
     <string name="pod_count_hint">0</string>
     <string name="pod_count">Pod Count:</string>
     <string name="pod">Pod</string>
+    <string name="number_of_pods">Number of Pods:</string>
+    <string name="switch_to_poo_tracker">Switch to Poo Tracker</string>
+    <string name="stats_icon">stats icon</string>
 </resources>

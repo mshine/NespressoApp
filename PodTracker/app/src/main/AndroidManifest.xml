@@ -17,8 +17,9 @@
         </activity>
         <activity
             android:name=".UserActivity"
-            android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".AddPodActivity"/>
+            android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".AddPodActivity" />
+        <activity android:name=".StatsActivity"></activity>
     </application>
 
 </manifest>

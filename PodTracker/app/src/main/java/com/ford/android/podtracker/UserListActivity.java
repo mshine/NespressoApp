@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,10 +23,21 @@ public class UserListActivity extends AppCompatActivity implements Listener {
         super.onStart();
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv_userlist);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_user_list);
         adapter = new ListAdapter(this, dbHelper.getUsersList());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
@@ -44,14 +57,15 @@ public class UserListActivity extends AppCompatActivity implements Listener {
 
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv_userlist);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_user_list);
         adapter = new ListAdapter(this, dbHelper.getUsersList());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
-    public void nameToChange(UserData user) {
+    public void deleteUser(UserData user) {
+
         int id = user.id;
         dbHelper.deleteUserRow(id);
 
