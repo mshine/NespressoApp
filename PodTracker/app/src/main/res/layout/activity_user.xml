@@ -15,7 +15,7 @@
         android:id="@+id/et_name"
         android:hint="@string/enter_your_name"
         android:maxLength="20"
-        android:background="@color/whiteText"
+        android:background="@color/white_text"
         android:inputType="textCapSentences"
         android:layout_width="match_parent"
         android:padding="10dp"
@@ -27,7 +27,7 @@
         android:layout_below="@+id/et_name"
         android:layout_centerHorizontal="true"
         android:text="@string/next"
-        android:textColor="@color/whiteText"
+        android:textColor="@color/white_text"
         android:background="@color/colorPrimary"
         android:layout_width="150dp"
         android:layout_height="45dp" />
