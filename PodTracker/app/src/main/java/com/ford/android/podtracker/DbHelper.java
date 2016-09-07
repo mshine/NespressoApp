@@ -3,6 +3,7 @@ package com.ford.android.podtracker;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -54,7 +55,7 @@ public class DbHelper extends SQLiteOpenHelper {
      * Constructor should be private to prevent direct instantiation.
      * Make a call to the static method "getInstance()" instead.
      */
-    private DbHelper(Context context) {
+    DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -108,7 +109,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertUserPods(UserPods userPods) {
+    public void insertUserPods(PodTransaction podTransaction) {
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -116,8 +117,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
         try {
             ContentValues values = new ContentValues();
-            values.put(up_USER_ID, userPods.getUserId());
-            values.put(up_TRANSACTION_DATE, userPods.getTransactionDate().toString());
+            values.put(up_USER_ID, podTransaction.getUserId());
+            values.put(up_TRANSACTION_DATE, podTransaction.getTransactionDate().toString());
 
             db.insertOrThrow(TABLE_USER_PODS, null, values);
             db.setTransactionSuccessful();
@@ -160,9 +161,9 @@ public class DbHelper extends SQLiteOpenHelper {
         return users;
     }
 
-    public List<UserPods> getUsersPodsList(int userId) {
+    public List<PodTransaction> getUsersPodsList(int userId) {
 
-        List<UserPods> userPods = new ArrayList<>();
+        List<PodTransaction> userPods = new ArrayList<>();
 
         String USER_DETAIL_SELECT_QUERY = "SELECT * FROM " + TABLE_USER_PODS + " WHERE " + up_USER_ID + " = " + userId;
 
@@ -172,7 +173,7 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    UserPods user = new UserPods();
+                    PodTransaction user = new PodTransaction();
                     user.setId(cursor.getInt(cursor.getColumnIndex(up_ID)));
                     user.setUserId(cursor.getInt(cursor.getColumnIndex(up_USER_ID)));
                     user.setTransactionDate(new Date(cursor.getString(cursor.getColumnIndex(up_TRANSACTION_DATE))));
@@ -231,5 +232,55 @@ public class DbHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
         }
+    }
+
+    public ArrayList<Cursor> getData(String Query){
+        //get writable database
+        SQLiteDatabase sqlDB = this.getWritableDatabase();
+        String[] columns = new String[] { "mesage" };
+        //an array list of cursor to save two cursors one has results from the query
+        //other cursor stores error message if any errors are triggered
+        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
+        MatrixCursor Cursor2= new MatrixCursor(columns);
+        alc.add(null);
+        alc.add(null);
+
+
+        try{
+            String maxQuery = Query ;
+            //execute the query results will be save in Cursor c
+            Cursor c = sqlDB.rawQuery(maxQuery, null);
+
+
+            //add value to cursor2
+            Cursor2.addRow(new Object[] { "Success" });
+
+            alc.set(1,Cursor2);
+            if (null != c && c.getCount() > 0) {
+
+
+                alc.set(0,c);
+                c.moveToFirst();
+
+                return alc ;
+            }
+            return alc;
+        } catch(SQLException sqlEx){
+            Log.d("printing exception", sqlEx.getMessage());
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        } catch(Exception ex){
+
+            Log.d("printing exception", ex.getMessage());
+
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        }
+
+
     }
 }

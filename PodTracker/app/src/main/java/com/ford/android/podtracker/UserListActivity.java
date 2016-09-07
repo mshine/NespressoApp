@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -35,6 +34,9 @@ public class UserListActivity extends AppCompatActivity implements Listener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        setTitle("Poo Tracker");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_poo);
         return super.onOptionsItemSelected(item);
     }
 
@@ -50,13 +52,10 @@ public class UserListActivity extends AppCompatActivity implements Listener {
         setContentView(R.layout.activity_user_list);
         ButterKnife.bind(this);
 
-        fabAddUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        fabAddUser.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+            startActivity(intent);
+            finish();
         });
 
         dbHelper = DbHelper.getInstance(getApplicationContext());

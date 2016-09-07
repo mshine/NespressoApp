@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,4 +10,92 @@
     android:background="@color/colorPrimaryDark"
     tools:context="com.ford.android.podtracker.StatsActivity">
 
-</TableLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_pods"
+        android:id="@+id/tv_total_pods_label"
+        android:layout_marginTop="42dp"
+        android:textColor="@color/white_text"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_total_pods"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white_text"
+        android:textColorHint="@color/white_text"
+        android:width="30dp"
+        android:hint="@string/pod_count_hint"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_below="@+id/tv_total_pods_label"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_month"
+        android:id="@+id/tv_last_month_label"
+        android:textColor="@color/white_text"
+        android:textSize="18sp"
+        android:layout_above="@+id/tv_last_month"
+        android:layout_toLeftOf="@+id/tv_total_pods_label"
+        android:layout_toStartOf="@+id/tv_total_pods_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_last_month"
+        android:textColor="@color/white_text"
+        android:textColorHint="@color/white_text"
+        android:width="30dp"
+        android:hint="@string/pod_count_hint"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/tv_current_month_label"
+        android:layout_alignLeft="@+id/tv_last_month_label"
+        android:layout_alignStart="@+id/tv_last_month_label"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/current_month"
+        android:id="@+id/tv_current_month_label"
+        android:textColor="@color/white_text"
+        android:textSize="18sp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/tv_total_pods_label"
+        android:layout_toEndOf="@+id/tv_total_pods_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_current_month"
+        android:textColor="@color/white_text"
+        android:textColorHint="@color/white_text"
+        android:width="30dp"
+        android:hint="@string/_0"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/tv_last_month"
+        android:layout_alignRight="@+id/tv_current_month_label"
+        android:layout_alignEnd="@+id/tv_current_month_label"
+        android:layout_marginRight="39dp"
+        android:layout_marginEnd="39dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DB"
+        android:id="@+id/dbStart"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="47dp" />
+</RelativeLayout>

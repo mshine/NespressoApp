@@ -9,4 +9,8 @@
     <string name="number_of_pods">Number of Pods:</string>
     <string name="switch_to_poo_tracker">Switch to Poo Tracker</string>
     <string name="stats_icon">stats icon</string>
+    <string name="current_month">Current Month</string>
+    <string name="total_pods">Total Pods</string>
+    <string name="_0">0</string>
+    <string name="last_month">Last Month</string>
 </resources>

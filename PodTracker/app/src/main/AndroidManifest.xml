@@ -19,7 +19,9 @@
             android:name=".UserActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity android:name=".AddPodActivity" />
-        <activity android:name=".StatsActivity"></activity>
+        <activity android:name=".StatsActivity"/>
+        <activity android:name="com.ford.android.podtracker.AndroidDatabaseManager"
+            android:theme="@style/Theme.AppCompat.Light"/>
     </application>
 
 </manifest>
