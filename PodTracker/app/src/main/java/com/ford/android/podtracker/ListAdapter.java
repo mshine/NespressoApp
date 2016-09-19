@@ -24,7 +24,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     private final Context context;
     private List<User> userList = new ArrayList<>();
     private final LayoutInflater inflater;
-    private Listener listener;
+    private final Listener listener;
 
     public ListAdapter(Context context, List<User> userList) {
 

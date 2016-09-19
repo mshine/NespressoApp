@@ -19,7 +19,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_addUser"
+        android:id="@+id/fab_add_user"
         android:src="@drawable/ic_user_add"
         app:fabSize="normal"
         android:layout_gravity="bottom|end"

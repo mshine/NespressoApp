@@ -34,4 +34,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.annimon:stream:1.1.2'
+    compile 'org.mariadb.jdbc:mariadb-java-client:1.5.2'
 }

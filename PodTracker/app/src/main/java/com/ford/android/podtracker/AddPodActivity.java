@@ -1,6 +1,7 @@
 package com.ford.android.podtracker;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -12,12 +13,11 @@ import butterknife.ButterKnife;
 
 public class AddPodActivity extends AppCompatActivity {
 
-    private DbHelper dbHelper;
-
     @BindView(R.id.btn_add_pod)
     ImageButton btnAddPod;
     @BindView(R.id.tv_add_pod_count)
     TextView tvPodCount;
+    private DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +34,27 @@ public class AddPodActivity extends AppCompatActivity {
         tvPodCount.setText(String.valueOf(podCount[0]));
 
         btnAddPod.setOnClickListener(v -> {
-            podCount[0]++;
-            tvPodCount.setText(String.valueOf(podCount[0]));
+            AlertDialog.Builder alert = new AlertDialog.Builder(AddPodActivity.this);
+            alert.setTitle("Add Pod Confirmation");
+            alert.setMessage("Are you sure you want to increment the pod count for " + user.getName() + "?");
+            alert.setPositiveButton("Yes", (dialog, which) -> {
+                podCount[0]++;
+                tvPodCount.setText(String.valueOf(podCount[0]));
 
-            dbHelper.updatePodCount(user.getId(), podCount[0]);
+                dbHelper.updatePodCount(user.getId(), podCount[0]);
 
-            PodTransaction podTransaction = new PodTransaction();
+                PodTransaction podTransaction = new PodTransaction();
 
-            podTransaction.setUserId(user.getId());
-            podTransaction.setTransactionDate(Calendar.getInstance().getTime());
+                podTransaction.setUserId(user.getId());
+                podTransaction.setTransactionDate(Calendar.getInstance().getTime());
 
-            dbHelper.insertUserPods(podTransaction);
-
+                dbHelper.insertUserPods(podTransaction);
+                dialog.dismiss();
+            });
+            alert.setNegativeButton("No", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alert.show();
         });
 
     }

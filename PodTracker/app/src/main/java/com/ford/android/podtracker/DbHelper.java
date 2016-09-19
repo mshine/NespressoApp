@@ -21,12 +21,13 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String TAG = "DbHelper";
 
     // Database Info
-    private static final String DATABASE_NAME = "PodTracker";
+    private static final String DATABASE_NAME = "podtracker";
     private static final int DATABASE_VERSION = 1;
 
     //Table Names
     private static final String TABLE_USERS = "users";
     private static final String TABLE_USER_PODS = "user_pods";
+    private static final String TABLE_POD_TYPES = "pod_types";
 
     //users Table Columns
     private static final String u_ID = "_id";
@@ -37,6 +38,11 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String up_ID = "_id";
     private static final String up_USER_ID = "user_id";
     private static final String up_TRANSACTION_DATE = "transaction_date";
+
+    //pod_types Table Columns
+    private static final String p_ID = "_id";
+    private static final String p_NAME = "pod_name";
+    private static final String p_PRICE = "price";
 
     private static DbHelper mDbHelper;
 
@@ -76,6 +82,16 @@ public class DbHelper extends SQLiteOpenHelper {
                 up_TRANSACTION_DATE + " DATETIME" +
                 ")";
         db.execSQL(CREATE_USER_PODS_TABLE);
+
+//        String CREATE_POD_TYPES_TABLE = "CREATE TABLE " + TABLE_POD_TYPES +
+//                "(" +
+//                p_ID + " INTEGER PRIMARY KEY ," +
+//                p_NAME + " TEXT," +
+//                p_PRICE + " DECIMAL" +
+//                ")";
+//        db.execSQL(CREATE_POD_TYPES_TABLE);
+//
+//        insertPodTypes();
     }
 
     @Override
@@ -83,6 +99,7 @@ public class DbHelper extends SQLiteOpenHelper {
         if (oldVersion != newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_PODS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_POD_TYPES);
 
             onCreate(db);
         }
@@ -108,6 +125,31 @@ public class DbHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
+
+//    public void insertPodTypes() {
+//
+//        SQLiteDatabase db = getWritableDatabase();
+//
+//        db.beginTransaction();
+//
+//        try {
+//            ContentValues values = new ContentValues();
+//            values.put(p_NAME, "Kazaar");
+//            values.put(p_PRICE, 0.40);
+//            db.insertOrThrow(TABLE_USERS, null, values);
+//
+//            values.put(p_NAME, "Caramelito");
+//            values.put(p_PRICE, 0.50);
+//            db.insertOrThrow(TABLE_USERS, null, values);
+//
+//            db.setTransactionSuccessful();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            Log.d(TAG, "Error while trying to add pod type to database");
+//        } finally {
+//            db.endTransaction();
+//        }
+//    }
 
     public void insertUserPods(PodTransaction podTransaction) {
 
@@ -237,10 +279,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public ArrayList<Cursor> getData(String Query){
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
-        String[] columns = new String[] { "mesage" };
+        String[] columns = new String[] { "message" };
         //an array list of cursor to save two cursors one has results from the query
         //other cursor stores error message if any errors are triggered
-        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
+        ArrayList<Cursor> alc = new ArrayList<>(2);
         MatrixCursor Cursor2= new MatrixCursor(columns);
         alc.add(null);
         alc.add(null);

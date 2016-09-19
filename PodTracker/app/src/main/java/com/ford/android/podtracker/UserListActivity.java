@@ -19,7 +19,7 @@ public class UserListActivity extends AppCompatActivity implements Listener {
     private DbHelper dbHelper;
     private ListAdapter adapter;
 
-    @BindView(R.id.fab_addUser) FloatingActionButton fabAddUser;
+    @BindView(R.id.fab_add_user) FloatingActionButton fabAddUser;
 
     @Override
     protected void onStart() {

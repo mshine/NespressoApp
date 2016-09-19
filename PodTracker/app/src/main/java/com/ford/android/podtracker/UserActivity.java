@@ -1,9 +1,8 @@
 package com.ford.android.podtracker;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,28 +28,25 @@ public class UserActivity extends AppCompatActivity {
 
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User();
+        btn_next.setOnClickListener(v -> {
+            User user = new User();
 
-                if (!et_name.getText().toString().isEmpty()) {
-                    String etName = et_name.getText().toString();
-                    user.setName(etName.substring(0, 1).toUpperCase() + etName.substring(1).toLowerCase());
-                } else {
-                    et_name.setError("Please enter a name");
-                    return;
-                }
-
-                dbHelper.insertUser(user);
-
-                Intent intent = new Intent(UserActivity.this, UserListActivity.class);
-                startActivity(intent);
-
-                CharSequence text = "User " + user.getName() + " added.";
-                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                toast.show();
+            if (!et_name.getText().toString().isEmpty()) {
+                String etName = et_name.getText().toString();
+                user.setName(etName.substring(0, 1).toUpperCase() + etName.substring(1).toLowerCase());
+            } else {
+                et_name.setError("Please enter a name");
+                return;
             }
+
+            dbHelper.insertUser(user);
+
+            Intent intent = new Intent(UserActivity.this, UserListActivity.class);
+            startActivity(intent);
+
+            CharSequence text = "User " + user.getName() + " added.";
+            Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            toast.show();
         });
     }
 
