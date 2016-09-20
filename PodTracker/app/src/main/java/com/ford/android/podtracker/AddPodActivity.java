@@ -30,8 +30,8 @@ public class AddPodActivity extends AppCompatActivity {
 
         final User user = (User) getIntent().getSerializableExtra("user");
 
-        final int[] podCount = {dbHelper.getUser(user.getId()).getPodCount()};
-        tvPodCount.setText(String.valueOf(podCount[0]));
+        int podCount[] = {dbHelper.getUser(user.getId()).getPodCount()};
+        tvPodCount.setText(String.valueOf(podCount));
 
         btnAddPod.setOnClickListener(v -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(AddPodActivity.this);

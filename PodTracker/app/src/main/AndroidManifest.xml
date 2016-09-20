@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserActivity"
+            android:name=".AddUserActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity android:name=".AddPodActivity" />
         <activity android:name=".StatsActivity"/>

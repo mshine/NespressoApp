@@ -33,4 +33,10 @@ public class User implements Serializable {
     public void setPodCount(int podCount) {
         this.podCount = podCount;
     }
+
+    public void incrementPodCount() {
+    }
+
+    public void decrementPodCount() {
+    }
 }
