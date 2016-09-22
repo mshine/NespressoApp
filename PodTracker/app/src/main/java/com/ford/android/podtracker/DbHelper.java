@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.ford.android.podtracker.Model.PodTransaction;
+import com.ford.android.podtracker.Model.User;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -255,14 +258,14 @@ public class DbHelper extends SQLiteOpenHelper {
         return user;
     }
 
-    void updatePodCount(int id, int podCount) {
+    public void updatePodCount(int id, int podCount) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(u_POD_COUNT, podCount);
         db.update(TABLE_USERS, cv, u_ID + "=" + id, null);
     }
 
-    void deleteUserRow(int id) {
+    public void deleteUserRow(int id) {
         SQLiteDatabase db = getWritableDatabase();
 
         try {

@@ -36,17 +36,29 @@
         android:id="@+id/tvPodCount"
         android:width="25dp"
         android:layout_centerVertical="true"
-        android:layout_margin="5dp"
-        android:layout_toLeftOf="@+id/iv_stats"
-        android:layout_toStartOf="@+id/iv_stats" />
+        android:layout_toLeftOf="@+id/iv_stats_temp"
+        android:layout_toStartOf="@+id/iv_stats_temp" />
 
     <ImageView
-        android:id="@+id/iv_stats"
+        android:id="@+id/iv_stats_temp"
         android:src="@drawable/ic_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:contentDescription="@string/stats_icon"
+        android:layout_alignTop="@+id/iv_stats"
+        android:layout_alignRight="@+id/iv_stats"
+        android:layout_alignEnd="@+id/iv_stats"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/iv_stats"
+        android:src="@drawable/ic_user_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:contentDescription="@string/stats_icon"
         android:layout_alignTop="@+id/iv_delete"
         android:layout_alignRight="@+id/iv_delete"

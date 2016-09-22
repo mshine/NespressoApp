@@ -1,5 +1,6 @@
 package com.ford.android.podtracker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ford.android.podtracker.Activity.AddPodActivity;
+import com.ford.android.podtracker.Activity.StatsActivity;
+import com.ford.android.podtracker.Activity.UserProfileActivity;
+import com.ford.android.podtracker.Model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +27,11 @@ import butterknife.ButterKnife;
  */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
 
-    private final Context context;
-    private List<User> userList = new ArrayList<>();
+    static final int ADD_POD_REQUEST = 1;
+    public final Context context;
     private final LayoutInflater inflater;
     private final Listener listener;
+    private List<User> userList = new ArrayList<>();
 
     public ListAdapter(Context context, List<User> userList) {
 
@@ -48,11 +55,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         holder.tv_podCount.setText(String.valueOf(user.getPodCount()));
 
-        holder.iv_stats.setTag(position);
-        holder.iv_stats.setOnClickListener(v -> {
+        holder.iv_stats_temp.setTag(position);
+        holder.iv_stats_temp.setOnClickListener(v -> {
+            //TODO TEMP STATS ACTIVITY INTENT
             Intent intent = new Intent(context, StatsActivity.class);
             intent.putExtra("user", user);
             context.startActivity(intent);
+        });
+
+        holder.iv_stats.setTag(position);
+        holder.iv_stats.setOnClickListener(v -> {
+            //TODO changed form STATS to ADDPOD Activity
+            Intent intent = new Intent(context, AddPodActivity.class);
+            intent.putExtra("user", user);
+            ((Activity) context).startActivityForResult(intent, ADD_POD_REQUEST);
         });
 
         holder.iv_delete.setTag(position);
@@ -73,8 +89,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         holder.tv_name.setText(user.getName());
         holder.tv_name.setOnClickListener(view -> {
-            Intent intent = new Intent(context, AddPodActivity.class);
+
+            // TODO Changed from AddPodActivity to UserProfileActivity temporarily - until login implemented
+            Intent intent = new Intent(context, UserProfileActivity.class);
             intent.putExtra("user", user);
+            //((Activity) context).startActivityForResult(intent, ADD_POD_REQUEST);
             context.startActivity(intent);
         });
 
@@ -86,10 +105,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_name) TextView tv_name;
-        @BindView(R.id.tvPodCount) TextView tv_podCount;
-        @BindView(R.id.iv_stats) ImageView iv_stats;
-        @BindView(R.id.iv_delete) ImageView iv_delete;
+        @BindView(R.id.tv_name)
+        TextView tv_name;
+        @BindView(R.id.tvPodCount)
+        TextView tv_podCount;
+        @BindView(R.id.iv_stats_temp)
+        ImageView iv_stats_temp;
+        @BindView(R.id.iv_stats)
+        ImageView iv_stats;
+        @BindView(R.id.iv_delete)
+        ImageView iv_delete;
 
 
         public ListViewHolder(View itemView) {

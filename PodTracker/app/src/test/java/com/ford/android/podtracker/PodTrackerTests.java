@@ -1,5 +1,7 @@
 package com.ford.android.podtracker;
 
+import com.ford.android.podtracker.Model.User;
+
 import org.junit.Test;
 
 import java.util.regex.Matcher;
@@ -94,6 +96,11 @@ public class PodTrackerTests {
     }
 
     @Test
+    public void checkIntentExtraFromAddUserActivityToUserListActivity() {
+
+    }
+
+    @Test
     public void checkBackTransitionFromAddUserActivityToUserListActivity() {
 
     }
@@ -109,12 +116,17 @@ public class PodTrackerTests {
     }
 
     @Test
-    public void checkTransitionFromAddPodActivityToUserListActivity() {
+    public void checkIntentExtraFromUserListActivityToAddPodActivity() {
 
     }
 
     @Test
-    public void checkBackTransitionFromAddPodActivityToAddUserActivity() {
+    public void checkIntentExtraFromAddPodActivityToUserListActivity() {
+
+    }
+
+    @Test
+    public void checkBackTransitionFromAddPodActivityToUserListActivity() {
 
     }
 
