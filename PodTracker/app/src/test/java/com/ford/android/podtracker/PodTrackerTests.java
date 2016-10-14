@@ -1,8 +1,10 @@
 package com.ford.android.podtracker;
 
-import com.ford.android.podtracker.Model.User;
+import com.ford.android.podtracker.data.User;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,32 +12,38 @@ import java.util.regex.Pattern;
 import static java.util.regex.Pattern.compile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class PodTrackerTests {
 
     @Test
-    public void incrementPodCount_maxPodsInASingleDayIs20() {
+    public void testMaxPodsInASingleDayIs20() {
         User user = new User();
         user.setPodCount(20);
+
+        //TODO implement increment method
         user.incrementPodCount();
 
         assertThat(user.getPodCount(), is(20));
     }
 
     @Test
-    public void decrementPodCount_podCountCannotGoBelow0() {
+    public void testPodCountCannotGoBelow0() {
         User user = new User();
         user.setPodCount(0);
+
+        //TODO implement decrement method
         user.decrementPodCount();
 
         assertThat(user.getPodCount(), is(0));
     }
 
     @Test
-    public void addUser_userNameCanOnlyContainLetters() {
+    public void testUserNameCanOnlyContainLetters() {
         User user = new User();
         user.setName("H3!!0");
 
@@ -51,82 +59,84 @@ public class PodTrackerTests {
     }
 
     @Test
-    public void userListActivity_isAdapterIntialisiedWithCorrectParameters() {
+    public void testAdapterIntialisiedWithCorrectParameters() {
 
     }
 
     @Test
-    public void userListActivity_doesAdapterDisplayCorrectNumberOfItemsFromDb() {
+    public void testAdapterDisplaysCorrectNumberOfItemsFromDb() {
 
     }
 
     @Test
-    public void addUser_userNameDoesNotAlreadyExist() {
+    public void testUserNameDoesNotAlreadyExist() {
 
     }
 
     @Test
-    public void getNoOfPodsForLastMonth_CheckParameters() {
+    public void testGetNoOfPodsForLastMonth_CheckParameters() {
 
     }
 
     @Test
-    public void getNoOfPodsForCurrentMonth_CheckParameters() {
+    public void testGetNoOfPodsForCurrentMonth_CheckParameters() {
 
     }
 
     @Test
-    public void getNoOfPodsForLastMonth_CheckDateBoundaries() {
+    public void testGetNoOfPodsForLastMonth_CheckDateBoundaries() {
 
     }
 
     @Test
-    public void getNoOfPodsForCurrentMonth_CheckDateBoundaries() {
+    public void testGetNoOfPodsForCurrentMonth_CheckDateBoundaries() {
 
     }
 
     @Test
-    public void checkTransitionFromUserListActivityToAddUserActivity() {
+    public void testCheckTransitionFromUserListActivityToAddUserActivity() {
 
     }
 
     @Test
-    public void checkTransitionFromAddUserActivityToUserListActivity() {
+    public void testCheckTransitionFromAddUserActivityToUserListActivity() {
 
     }
 
     @Test
-    public void checkIntentExtraFromAddUserActivityToUserListActivity() {
+    public void testCheckIntentExtraFromAddUserActivityToUserListActivity() {
+        //mock user object
+        User user = mock(User.class);
+        //is make text called
+    }
+
+    @Test
+    public void testCheckBackTransitionFromAddUserActivityToUserListActivity() {
 
     }
 
     @Test
-    public void checkBackTransitionFromAddUserActivityToUserListActivity() {
+    public void testCheckTransitionFromUserListActivityToStatsActivity() {
 
     }
 
     @Test
-    public void checkTransitionFromUserListActivityToStatsActivity() {
+    public void testCheckTransitionFromUserListActivityToAddPodActivity() {
 
     }
 
     @Test
-    public void checkTransitionFromUserListActivityToAddPodActivity() {
+    public void testCheckIntentExtraFromUserListActivityToAddPodActivity() {
 
     }
 
     @Test
-    public void checkIntentExtraFromUserListActivityToAddPodActivity() {
+    public void testCheckIntentExtraFromAddPodActivityToUserListActivity() {
 
     }
 
     @Test
-    public void checkIntentExtraFromAddPodActivityToUserListActivity() {
-
-    }
-
-    @Test
-    public void checkBackTransitionFromAddPodActivityToUserListActivity() {
+    public void testCheckBackTransitionFromAddPodActivityToUserListActivity() {
 
     }
 

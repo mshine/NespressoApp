@@ -3,15 +3,16 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.ford.android.podtracker"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -23,17 +24,46 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    sourceSets { main { java.srcDirs = ['src/main/java', 'src/mock/'] } }
+
+    // Always show the result of every unit test, even if it passes.
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.annimon:stream:1.1.2'
     compile 'org.mariadb.jdbc:mariadb-java-client:1.5.2'
-    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.google.guava:guava:18.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.1.0-RC.1'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+}
+
+configurations.all {
+    resolutionStrategy.force "com.android.support:support-annotations:24.1.0"
+}
+/*
+All direct/transitive dependencies shared between your test and production APKs need to be
+excluded from the test APK! This is necessary because both APKs will contain the same classes. Not
+excluding these dependencies from your test configuration will result in an dex pre-verifier error
+at runtime. More info in this tools bug: (https://code.google.com/p/android/issues/detail?id=192497)
+*/
+configurations.compile.dependencies.each { compileDependency ->
+    println "Excluding compile dependency: ${compileDependency.getName()}"
+    configurations.androidTestCompile.dependencies.each { androidTestCompileDependency ->
+        configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
+    }
 }

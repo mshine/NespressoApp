@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimaryDark"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPodCountLabel"
+        android:layout_above="@+id/tv_add_pod_count"
+        android:textColor="@color/white_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="@string/number_of_pods"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_add_pod_count"
+        android:hint="@string/_0"
+        android:textColorHint="@color/white_text"
+        android:layout_above="@+id/btn_add_pod_caramelito"
+        android:textColor="@color/white_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:width="40dp"
+        android:textSize="20sp"
+        android:textAlignment="center" />
+
+    <ImageButton
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:id="@+id/btn_add_pod_caramelito"
+        android:contentDescription="@string/caramelito"
+        android:src="@mipmap/ic_caramelito"
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/tv_add_pod_count"
+        android:layout_toStartOf="@+id/tv_add_pod_count" />
+
+    <ImageButton
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:id="@+id/btn_add_pod_kazaar"
+        android:contentDescription="@string/kazaar"
+        android:src="@mipmap/ic_kazaar"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/tv_add_pod_count"
+        android:layout_toRightOf="@+id/tv_add_pod_count"
+        android:layout_toEndOf="@+id/tv_add_pod_count" />
+</RelativeLayout>

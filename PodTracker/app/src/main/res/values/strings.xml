@@ -3,9 +3,7 @@
     <string name="enter_your_name">Enter your name</string>
     <string name="next">Next</string>
     <string name="delete_icon">delete icon</string>
-    <string name="pod_count_hint">0</string>
     <string name="pod_count">Pod Count:</string>
-    <string name="pod">Pod</string>
     <string name="number_of_pods">Number of Pods:</string>
     <string name="stats_icon">stats icon</string>
     <string name="current_month">Current Month</string>
@@ -14,6 +12,10 @@
     <string name="last_month">Last Month</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_profile_name">Name:</string>
+    <string name="caramelito">Caramelito</string>
+    <string name="kazaar">Kazaar</string>
+    <string name="total_owed">Total Owed</string>
+    <string name="_0_00">£0.00</string>
+
 </resources>

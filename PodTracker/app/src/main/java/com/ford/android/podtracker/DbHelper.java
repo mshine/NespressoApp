@@ -9,8 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.ford.android.podtracker.Model.PodTransaction;
-import com.ford.android.podtracker.Model.User;
+import com.ford.android.podtracker.data.PodTransaction;
+import com.ford.android.podtracker.data.PodType;
+import com.ford.android.podtracker.data.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "podtracker";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 23;
 
     //Table Names
     private static final String TABLE_USERS = "users";
@@ -36,10 +37,12 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String u_ID = "_id";
     private static final String u_NAME = "name";
     private static final String u_POD_COUNT = "pod_count";
+    private static final String u_TOTAL_OWED = "total_owed";
 
     //user_pods Table Columns
     private static final String up_ID = "_id";
     private static final String up_USER_ID = "user_id";
+    private static final String up_USER_POD_TYPE_ID = "user_pod_type_id";
     private static final String up_TRANSACTION_DATE = "transaction_date";
 
     //pod_types Table Columns
@@ -48,6 +51,14 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String p_PRICE = "price";
 
     private static DbHelper mDbHelper;
+
+    /**
+     * Constructor should be private to prevent direct instantiation.
+     * Make a call to the static method "getInstance()" instead.
+     */
+    DbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public static synchronized DbHelper getInstance(Context context) {
         // Use the application context, which will ensure that you
@@ -59,42 +70,45 @@ public class DbHelper extends SQLiteOpenHelper {
         return mDbHelper;
     }
 
-
-    /**
-     * Constructor should be private to prevent direct instantiation.
-     * Make a call to the static method "getInstance()" instead.
-     */
-    DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS +
                 "(" +
-                u_ID + " INTEGER PRIMARY KEY ," +
-                u_NAME + " TEXT," +
-                u_POD_COUNT + " INTEGER" +
+                u_ID + " INTEGER PRIMARY KEY, " +
+                u_NAME + " TEXT, " +
+                u_POD_COUNT + " INTEGER, " +
+                u_TOTAL_OWED + " DECIMAL" +
                 ")";
         db.execSQL(CREATE_USERS_TABLE);
 
         String CREATE_USER_PODS_TABLE = "CREATE TABLE " + TABLE_USER_PODS +
                 "(" +
-                up_ID + " INTEGER PRIMARY KEY ," +
-                up_USER_ID + " INTEGER," +
+                up_ID + " INTEGER PRIMARY KEY, " +
+                up_USER_ID + " INTEGER REFERENCES " + TABLE_USERS + "(" + u_ID + ") ON DELETE CASCADE, " +
+                up_USER_POD_TYPE_ID + " INTEGER REFERENCES " + TABLE_POD_TYPES + "(" + p_ID + ") ON DELETE CASCADE, " +
                 up_TRANSACTION_DATE + " DATETIME" +
                 ")";
         db.execSQL(CREATE_USER_PODS_TABLE);
 
-//        String CREATE_POD_TYPES_TABLE = "CREATE TABLE " + TABLE_POD_TYPES +
-//                "(" +
-//                p_ID + " INTEGER PRIMARY KEY ," +
-//                p_NAME + " TEXT," +
-//                p_PRICE + " DECIMAL" +
-//                ")";
-//        db.execSQL(CREATE_POD_TYPES_TABLE);
-//
-//        insertPodTypes();
+        String CREATE_POD_TYPES_TABLE = "CREATE TABLE " + TABLE_POD_TYPES +
+                "(" +
+                p_ID + " INTEGER PRIMARY KEY, " +
+                p_NAME + " TEXT, " +
+                p_PRICE + " DECIMAL" +
+                ")";
+        db.execSQL(CREATE_POD_TYPES_TABLE);
+
+        String INSERT_POD_TYPES = "INSERT INTO " + TABLE_POD_TYPES + " (" + p_NAME + ", " + p_PRICE + ") VALUES ('Kazaar', 0.40), ('Caramelito', 0.50)";
+
+        db.execSQL(INSERT_POD_TYPES);
     }
 
     @Override
@@ -118,6 +132,7 @@ public class DbHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(u_NAME, user.getName());
             values.put(u_POD_COUNT, user.getPodCount());
+            values.put(u_TOTAL_OWED, user.getTotalOwed());
 
             db.insertOrThrow(TABLE_USERS, null, values);
             db.setTransactionSuccessful();
@@ -129,31 +144,6 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public void insertPodTypes() {
-//
-//        SQLiteDatabase db = getWritableDatabase();
-//
-//        db.beginTransaction();
-//
-//        try {
-//            ContentValues values = new ContentValues();
-//            values.put(p_NAME, "Kazaar");
-//            values.put(p_PRICE, 0.40);
-//            db.insertOrThrow(TABLE_USERS, null, values);
-//
-//            values.put(p_NAME, "Caramelito");
-//            values.put(p_PRICE, 0.50);
-//            db.insertOrThrow(TABLE_USERS, null, values);
-//
-//            db.setTransactionSuccessful();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            Log.d(TAG, "Error while trying to add pod type to database");
-//        } finally {
-//            db.endTransaction();
-//        }
-//    }
-
     public void insertUserPods(PodTransaction podTransaction) {
 
         SQLiteDatabase db = getWritableDatabase();
@@ -163,6 +153,7 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             ContentValues values = new ContentValues();
             values.put(up_USER_ID, podTransaction.getUserId());
+            values.put(up_USER_POD_TYPE_ID, podTransaction.getUserPodTypeId());
             values.put(up_TRANSACTION_DATE, podTransaction.getTransactionDate().toString());
 
             db.insertOrThrow(TABLE_USER_PODS, null, values);
@@ -191,6 +182,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     user.setId(cursor.getInt(cursor.getColumnIndex(u_ID)));
                     user.setName(cursor.getString(cursor.getColumnIndex(u_NAME)));
                     user.setPodCount(cursor.getInt(cursor.getColumnIndex(u_POD_COUNT)));
+                    user.setTotalOwed(cursor.getDouble(cursor.getColumnIndex(u_TOTAL_OWED)));
 
                     users.add(user);
 
@@ -221,6 +213,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     PodTransaction user = new PodTransaction();
                     user.setId(cursor.getInt(cursor.getColumnIndex(up_ID)));
                     user.setUserId(cursor.getInt(cursor.getColumnIndex(up_USER_ID)));
+                    user.setUserPodTypeId(cursor.getInt(cursor.getColumnIndex(up_USER_POD_TYPE_ID)));
                     user.setTransactionDate(new Date(cursor.getString(cursor.getColumnIndex(up_TRANSACTION_DATE))));
 
                     userPods.add(user);
@@ -237,6 +230,28 @@ public class DbHelper extends SQLiteOpenHelper {
         return userPods;
     }
 
+    public PodType getPodType(String podName) {
+
+        PodType podType = new PodType();
+        String POD_TYPE_SELECT_QUERY = "SELECT * FROM " + TABLE_POD_TYPES + " WHERE " + p_NAME + " = '" + podName + "'";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(POD_TYPE_SELECT_QUERY, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            podType.setId(cursor.getInt(cursor.getColumnIndex(p_ID)));
+            podType.setName(cursor.getString(cursor.getColumnIndex(p_NAME)));
+            podType.setPrice(cursor.getDouble(cursor.getColumnIndex(p_PRICE)));
+
+            cursor.close();
+        } else {
+            Log.d(TAG, "Error while trying to get pod type from database");
+        }
+        return podType;
+    }
+
     public User getUser(int id) {
 
         User user = new User();
@@ -251,6 +266,8 @@ public class DbHelper extends SQLiteOpenHelper {
             user.setId(cursor.getInt(cursor.getColumnIndex(u_ID)));
             user.setName(cursor.getString(cursor.getColumnIndex(u_NAME)));
             user.setPodCount(cursor.getInt(cursor.getColumnIndex(u_POD_COUNT)));
+            user.setTotalOwed(cursor.getDouble(cursor.getColumnIndex(u_TOTAL_OWED)));
+
             cursor.close();
         } else {
             Log.d(TAG, "Error while trying to get a user from database");
@@ -262,6 +279,13 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(u_POD_COUNT, podCount);
+        db.update(TABLE_USERS, cv, u_ID + "=" + id, null);
+    }
+
+    public void updateTotalOwed(int id, double totalOwed) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(u_TOTAL_OWED, totalOwed);
         db.update(TABLE_USERS, cv, u_ID + "=" + id, null);
     }
 
@@ -279,50 +303,50 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<Cursor> getData(String Query){
+    public ArrayList<Cursor> getData(String Query) {
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
-        String[] columns = new String[] { "message" };
+        String[] columns = new String[]{"message"};
         //an array list of cursor to save two cursors one has results from the query
         //other cursor stores error message if any errors are triggered
         ArrayList<Cursor> alc = new ArrayList<>(2);
-        MatrixCursor Cursor2= new MatrixCursor(columns);
+        MatrixCursor Cursor2 = new MatrixCursor(columns);
         alc.add(null);
         alc.add(null);
 
 
-        try{
-            String maxQuery = Query ;
+        try {
+            String maxQuery = Query;
             //execute the query results will be save in Cursor c
             Cursor c = sqlDB.rawQuery(maxQuery, null);
 
 
             //add value to cursor2
-            Cursor2.addRow(new Object[] { "Success" });
+            Cursor2.addRow(new Object[]{"Success"});
 
-            alc.set(1,Cursor2);
+            alc.set(1, Cursor2);
             if (null != c && c.getCount() > 0) {
 
 
-                alc.set(0,c);
+                alc.set(0, c);
                 c.moveToFirst();
 
-                return alc ;
+                return alc;
             }
             return alc;
-        } catch(SQLException sqlEx){
+        } catch (SQLException sqlEx) {
             Log.d("printing exception", sqlEx.getMessage());
             //if any exceptions are triggered save the error message to cursor an return the arraylist
-            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
-            alc.set(1,Cursor2);
+            Cursor2.addRow(new Object[]{"" + sqlEx.getMessage()});
+            alc.set(1, Cursor2);
             return alc;
-        } catch(Exception ex){
+        } catch (Exception ex) {
 
             Log.d("printing exception", ex.getMessage());
 
             //if any exceptions are triggered save the error message to cursor an return the arraylist
-            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
-            alc.set(1,Cursor2);
+            Cursor2.addRow(new Object[]{"" + ex.getMessage()});
+            alc.set(1, Cursor2);
             return alc;
         }
 
