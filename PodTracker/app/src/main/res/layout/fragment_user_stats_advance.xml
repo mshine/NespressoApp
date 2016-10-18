@@ -10,18 +10,18 @@
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/january" />
+            android:layout_margin="23dp"
+            android:text="@string/_7am" />
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/february" />
+            android:layout_margin="23dp"
+            android:text="@string/_8am" />
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/march" />
+            android:layout_margin="23dp"
+            android:text="@string/_9am" />
 
     </TableRow>
 
@@ -30,66 +30,21 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_pods_0"
+            android:id="@+id/tv_hour_0"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
         <TextView
-            android:id="@+id/tv_pods_1"
+            android:id="@+id/tv_hour_1"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
         <TextView
-            android:id="@+id/tv_pods_2"
+            android:id="@+id/tv_hour_2"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:hint="@string/_0" />
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/april" />
-
-        <TextView
-            android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/may" />
-
-        <TextView
-            android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/june" />
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_pods_3"
-            android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:hint="@string/_0" />
-
-        <TextView
-            android:id="@+id/tv_pods_4"
-            android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:hint="@string/_0" />
-
-        <TextView
-            android:id="@+id/tv_pods_5"
-            android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
     </TableRow>
@@ -100,18 +55,18 @@
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/july" />
+            android:layout_margin="23dp"
+            android:text="@string/_10am" />
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/august" />
+            android:layout_margin="23dp"
+            android:text="@string/_11am" />
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/september" />
+            android:layout_margin="23dp"
+            android:text="@string/_12pm" />
 
     </TableRow>
 
@@ -120,21 +75,21 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_pods_6"
+            android:id="@+id/tv_hour_3"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
         <TextView
-            android:id="@+id/tv_pods_7"
+            android:id="@+id/tv_hour_4"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
         <TextView
-            android:id="@+id/tv_pods_8"
+            android:id="@+id/tv_hour_5"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
     </TableRow>
@@ -145,18 +100,18 @@
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/october" />
+            android:layout_margin="23dp"
+            android:text="@string/_1pm" />
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/november" />
+            android:layout_margin="23dp"
+            android:text="@string/_2pm" />
 
         <TextView
             android:layout_gravity="center"
-            android:layout_margin="17dp"
-            android:text="@string/december" />
+            android:layout_margin="23dp"
+            android:text="@string/_3pm" />
 
     </TableRow>
 
@@ -165,21 +120,66 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_pods_9"
+            android:id="@+id/tv_hour_6"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
         <TextView
-            android:id="@+id/tv_pods_10"
+            android:id="@+id/tv_hour_7"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
 
         <TextView
-            android:id="@+id/tv_pods_11"
+            android:id="@+id/tv_hour_8"
             android:layout_gravity="center"
-            android:layout_margin="17dp"
+            android:layout_margin="23dp"
+            android:hint="@string/_0" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_margin="23dp"
+            android:text="@string/_4pm" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_margin="23dp"
+            android:text="@string/_5pm" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_margin="23dp"
+            android:text="@string/_6pm" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_hour_9"
+            android:layout_gravity="center"
+            android:layout_margin="23dp"
+            android:hint="@string/_0" />
+
+        <TextView
+            android:id="@+id/tv_hour_10"
+            android:layout_gravity="center"
+            android:layout_margin="23dp"
+            android:hint="@string/_0" />
+
+        <TextView
+            android:id="@+id/tv_hour_11"
+            android:layout_gravity="center"
+            android:layout_margin="23dp"
             android:hint="@string/_0" />
     </TableRow>
 

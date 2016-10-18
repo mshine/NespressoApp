@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ford.android.podtracker.Injection;
 import com.ford.android.podtracker.R;
 import com.ford.android.podtracker.data.PodTransaction;
 import com.ford.android.podtracker.data.PodType;
@@ -24,6 +23,7 @@ import butterknife.BindView;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 import static butterknife.ButterKnife.bind;
+import static inj.Injection.provideUsersRepository;
 import static java.lang.String.valueOf;
 import static java.util.Calendar.getInstance;
 
@@ -56,7 +56,7 @@ public class AddPodFragment extends Fragment implements AddPodContract.View {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActionListener = new AddPodPresenter(Injection.provideUsersRepository(), this);
+        mActionListener = new AddPodPresenter(provideUsersRepository(), this);
 
         int userId = getArguments().getInt("userId");
         user = mActionListener.loadUser(userId);

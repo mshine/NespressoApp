@@ -38,7 +38,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
-            android:name=".userprofile.UserProfileActivity"
+        android:name=".userprofile.UserProfileActivity"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait" />
+        <activity
+            android:name=".userstatsadv.UserStatsAdvanceActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
     </application>

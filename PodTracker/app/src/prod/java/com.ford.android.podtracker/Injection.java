@@ -12,7 +12,7 @@ public class Injection {
     }
 
 //    public static UsersRepository provideUsersRepository() {
-//        return UserRepositories.getInMemoryRepoInstance(new FakeUsersServiceApiImpl());
+//        return UserRepositories.getInMemoryRepoInstance(new UsersServiceApiImpl());
 //    }
     //MOCK
 

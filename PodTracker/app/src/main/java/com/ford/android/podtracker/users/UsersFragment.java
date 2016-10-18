@@ -24,6 +24,7 @@ import com.ford.android.podtracker.adduser.AddUserActivity;
 import com.ford.android.podtracker.data.User;
 import com.ford.android.podtracker.userprofile.UserProfileActivity;
 import com.ford.android.podtracker.userstats.StatsActivity;
+import com.ford.android.podtracker.userstatsadv.UserStatsAdvanceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,8 @@ import butterknife.BindView;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 import static butterknife.ButterKnife.bind;
-import static com.ford.android.podtracker.Injection.provideUsersRepository;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static inj.Injection.provideUsersRepository;
 
 public class UsersFragment extends Fragment implements UsersContract.View {
 
@@ -142,6 +143,13 @@ public class UsersFragment extends Fragment implements UsersContract.View {
         startActivity(intent);
     }
 
+    @Override
+    public void showHour(User user) {
+        Intent intent = new Intent(getContext(), UserStatsAdvanceActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
     public interface UserItemListener {
 
         void onUserClick(User clickedUser);
@@ -174,6 +182,8 @@ public class UsersFragment extends Fragment implements UsersContract.View {
             holder.name.setOnClickListener(v -> mActionsListener.openUserStats(selectedUser));
 
             holder.ivAddPod.setOnClickListener(v -> mActionsListener.openAddPod(selectedUser));
+
+            holder.ivHour.setOnClickListener(v -> mActionsListener.openHour(selectedUser));
 
             holder.ivStatsTemp.setOnClickListener(v -> mActionsListener.openUserProfile(selectedUser));
 
@@ -215,6 +225,7 @@ public class UsersFragment extends Fragment implements UsersContract.View {
         public class ViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener */{
 
             @BindView(R.id.tv_name) TextView name;
+            @BindView(R.id.iv_stats_hour) ImageView ivHour;
             @BindView(R.id.tvPodCount) TextView podCount;
             @BindView(R.id.iv_stats_temp) ImageView ivStatsTemp;
             @BindView(R.id.iv_delete) ImageView ivDelete;

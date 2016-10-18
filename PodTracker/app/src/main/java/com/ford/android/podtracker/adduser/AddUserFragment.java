@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 import com.ford.android.podtracker.R;
 
-import static com.ford.android.podtracker.Injection.provideUsersRepository;
+import static inj.Injection.provideUsersRepository;
 
 public class AddUserFragment extends Fragment implements AddUserContract.View {
 

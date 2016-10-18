@@ -17,5 +17,30 @@
     <string name="kazaar">Kazaar</string>
     <string name="total_owed">Total Owed</string>
     <string name="_0_00">£0.00</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    <string name="total_owed2">Total Owed:</string>
+    <string name="_6pm">6pm</string>
+    <string name="_5pm">5pm</string>
+    <string name="_4pm">4pm</string>
+    <string name="_3pm">3pm</string>
+    <string name="_2pm">2pm</string>
+    <string name="_1pm">1pm</string>
+    <string name="_12pm">12pm</string>
+    <string name="_11am">11am</string>
+    <string name="_10am">10am</string>
+    <string name="_9am">9am</string>
+    <string name="_8am">8am</string>
+    <string name="_7am">7am</string>
 
 </resources>

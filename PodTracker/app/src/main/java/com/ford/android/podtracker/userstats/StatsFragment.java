@@ -17,10 +17,10 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.ford.android.podtracker.Injection.provideUsersRepository;
 import static com.ford.android.podtracker.data.PodTransaction.getNoOfPodsForCurrentMonth;
 import static com.ford.android.podtracker.data.PodTransaction.getNoOfPodsForLastMonth;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static inj.Injection.provideUsersRepository;
 import static java.lang.String.valueOf;
 
 public class StatsFragment extends Fragment implements StatsContract.View {

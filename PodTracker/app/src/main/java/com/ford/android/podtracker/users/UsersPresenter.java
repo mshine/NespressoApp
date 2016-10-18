@@ -52,4 +52,9 @@ public class UsersPresenter implements UsersContract.UserActionsListener {
         mUsersView.showUsers(mUsersServiceApi.getAllUsers());
         return user.getName();
     }
+
+    @Override
+    public void openHour(User selectedUser) {
+        mUsersView.showHour(selectedUser);
+    }
 }

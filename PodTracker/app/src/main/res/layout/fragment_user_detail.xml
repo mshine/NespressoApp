@@ -41,4 +41,21 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/tv_textView3"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="@string/total_owed2"
+        android:layout_alignLeft="@id/textView2"
+        android:layout_alignStart="@id/textView2"
+        android:layout_below="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/tv_total_owed_2"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

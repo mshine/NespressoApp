@@ -23,6 +23,8 @@ public interface UsersContract {
 
         void showAddPods(User user);
 
+        void showHour(User user);
+
     }
 
     interface UserActionsListener {
@@ -38,5 +40,7 @@ public interface UsersContract {
         void openAddPod(User user);
 
         String deleteUser(User user);
+
+        void openHour(User selectedUser);
     }
 }

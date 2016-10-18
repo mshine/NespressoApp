@@ -12,12 +12,13 @@ import com.ford.android.podtracker.R;
 import com.ford.android.podtracker.data.PodTransaction;
 import com.ford.android.podtracker.data.User;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.ford.android.podtracker.Injection.provideUsersRepository;
+import static inj.Injection.provideUsersRepository;
 import static java.lang.String.valueOf;
 
 
@@ -34,6 +35,8 @@ public class UserDetailFragment extends Fragment implements UserProfileContract.
     TextView tvUserName;
     @BindView(R.id.tv_pod_count)
     TextView tvPodCount;
+    @BindView(R.id.tv_total_owed_2)
+    TextView tvTotalOwed2;
 
     public UserDetailFragment() {
         // Required empty public constructor
@@ -74,5 +77,7 @@ public class UserDetailFragment extends Fragment implements UserProfileContract.
     public void showDetails(int userId) {
         tvUserName.setText(mUser.getName());
         tvPodCount.setText(valueOf(mUser.getPodCount()));
+        DecimalFormat df = new DecimalFormat("'£'0.00");
+        tvTotalOwed2.setText(valueOf(df.format(mUser.getTotalOwed())));
     }
 }

@@ -56,7 +56,7 @@
         android:layout_toEndOf="@+id/tv_total_owed_label"
         android:layout_toRightOf="@+id/tv_total_owed_label"
         android:width="30dp"
-        android:hint="@string/pod_count_hint"
+        android:hint="@string/_0"
         android:textColor="@color/white_text"
         android:textColorHint="@color/white_text"
         android:textSize="18sp" />
@@ -82,7 +82,7 @@
         android:layout_alignLeft="@+id/tv_total_owed"
         android:layout_alignStart="@+id/tv_total_owed"
         android:width="30dp"
-        android:hint="@string/pod_count_hint"
+        android:hint="@string/_0"
         android:textColor="@color/white_text"
         android:textColorHint="@color/white_text"
         android:textSize="18sp" />

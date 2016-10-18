@@ -13,8 +13,21 @@
         android:textColor="@color/white_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:width="150dp"
-        android:maxWidth="150dp" />
+        android:width="100dp"
+        android:maxWidth="100dp" />
+
+
+    <ImageView
+        android:id="@+id/iv_stats_hour"
+        android:src="@drawable/ic_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:contentDescription="@string/stats_icon"
+        android:layout_alignEnd="@+id/tv_name"
+        android:layout_alignRight="@+id/tv_name"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/pod_count_hint"
+        android:hint="@string/_0"
         android:textColorHint="@color/white_text"
         android:textColor="@color/white_text"
         android:id="@+id/tvPodCount"

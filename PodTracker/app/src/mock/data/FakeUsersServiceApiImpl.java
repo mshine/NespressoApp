@@ -1,4 +1,9 @@
-package com.ford.android.podtracker.data;
+package data;
+
+import com.ford.android.podtracker.data.PodTransaction;
+import com.ford.android.podtracker.data.PodType;
+import com.ford.android.podtracker.data.User;
+import com.ford.android.podtracker.data.UsersServiceApi;
 
 import java.util.List;
 
