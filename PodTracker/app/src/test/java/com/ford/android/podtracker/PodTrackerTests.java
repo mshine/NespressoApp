@@ -26,7 +26,7 @@ public class PodTrackerTests {
         user.setPodCount(20);
 
         //TODO implement increment method
-        user.incrementPodCount();
+        //user.incrementPodCount();
 
         assertThat(user.getPodCount(), is(20));
     }
@@ -37,7 +37,7 @@ public class PodTrackerTests {
         user.setPodCount(0);
 
         //TODO implement decrement method
-        user.decrementPodCount();
+        //user.decrementPodCount();
 
         assertThat(user.getPodCount(), is(0));
     }
